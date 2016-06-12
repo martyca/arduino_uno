@@ -1,0 +1,7 @@
+Put the UNO into DFU mode.
+dfu-prgrammer at90usb82 erase
+dfu-programmer at90usb82 flash --debug 1 <firmware>.hex
+dfu-programmer at90usb82 reset
+Unplug the UNO's USB cable for a few seconds and plug it back in
+
+the firmwares are either the keyboard firmware or the original atmel firmware.
