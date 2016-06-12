@@ -1,4 +1,5 @@
-/* Arduino USB HID Keyboard Demo
+/* Arduino USB HID Keyboard sketch.
+ *  
 */
 
 /* Modifiers go into the first bit of the 8 bit map. (buf[0]) */
@@ -8,6 +9,7 @@
   #define KEY_LEFT_GUI    0x04
   #define KEY_RIGHT_CTRL  0x10
   #define KEY_RIGHT_SHIFT 0x20
+  
   #define KEY_ErrorRollOver 0x01  /* Keyboard ErrorRollOver */
   #define KEY_POSTFail 0x02 /* Keyboard POSTFail */
   #define KEY_ErrorUndefined 0x03 /* Keyboard ErrorUndefined */
@@ -96,9 +98,9 @@ int buttonState = 0;
 uint8_t buf[8] = { 
   0 };   /* Keyboard report buffer */
 
-int KEY_STRING[]= {KEY_a, KEY_i, KEY_s, KEY_l, KEY_i, KEY_n, KEY_n, KEY_ENTER};
-int MOD_STRING[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0, 0};
-int ARRAY_LENGTH = 8;
+int KEY_STRING[]= {KEY_a, KEY_i, KEY_s, KEY_l, KEY_i, KEY_n, KEY_n, KEY_ENTER}; /* Character array */
+int MOD_STRING[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0, 0};                        /* Modifier array */
+int ARRAY_LENGTH = 8;                                                           /* Array length */
 
 void setup() 
 {
@@ -122,14 +124,14 @@ void loop()
   digitalWrite(13, LOW);
   }
 }
-void pressKey(int KEY, int MOD)
+void pressKey(int KEY, int MOD) /* Key press function (KEY is character, MOD is modifier) */
 {
   buf[0] = MOD;
   buf[2] = KEY;
   Serial.write(buf, 8); // Send keypress
   releaseKey();
 }
-void releaseKey() 
+void releaseKey() /* Key release function. */
 {
   delay(10);
   buf[0] = 0;
