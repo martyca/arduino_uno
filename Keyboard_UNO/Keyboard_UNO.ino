@@ -94,13 +94,24 @@
   #define KEY_UP 0x52 /* Keyboard UpArrow */
 
 
-int buttonState = 0;
+int buttonState_4 = 0;
+int buttonState_7 = 0;
+int buttonState_10 = 0;
 uint8_t buf[8] = { 
   0 };   /* Keyboard report buffer */
 
-int KEY_STRING[]= {KEY_a, KEY_i, KEY_s, KEY_l, KEY_i, KEY_n, KEY_n, KEY_ENTER}; /* Character array */
-int MOD_STRING[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0, 0};                        /* Modifier array */
-int ARRAY_LENGTH = 8;                                                           /* Array length */
+int KEY_STRING_4[]= {KEY_a, KEY_i, KEY_s, KEY_l, KEY_i, KEY_n, KEY_n, KEY_ENTER}; /* Character array */
+int MOD_STRING_4[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0, 0};                        /* Modifier array */
+int ARRAY_LENGTH_4 = 8;                                                           /* Array length */
+
+int KEY_STRING_7[]= {KEY_m, KEY_a, KEY_r, KEY_t, KEY_i, KEY_n, KEY_ENTER}; /* Character array */
+int MOD_STRING_7[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0};                        /* Modifier array */
+int ARRAY_LENGTH_7 = 7;                                                           /* Array length */
+
+int KEY_STRING_10[]= {KEY_c, KEY_o, KEY_n, KEY_n, KEY_o, KEY_r, KEY_ENTER}; /* Character array */
+int MOD_STRING_10[]= {KEY_LEFT_SHIFT, 0, 0, 0, 0, 0, 0};                        /* Modifier array */
+int ARRAY_LENGTH_10 = 7;                                                           /* Array length */
+
 
 void setup() 
 {
@@ -109,17 +120,33 @@ void setup()
   pinMode(13, OUTPUT);
   pinMode(2, OUTPUT);
   digitalWrite(2,LOW);
+  pinMode(5, OUTPUT);
+  digitalWrite(5,LOW);
+  pinMode(8, OUTPUT);
+  digitalWrite(8,LOW);
   pinMode(4, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
+  pinMode(10, INPUT_PULLUP);
 }
 
 void loop() 
 {
-  buttonState = digitalRead(4);
+  buttonState_4 = digitalRead(4);
+  buttonState_7 = digitalRead(7);
+  buttonState_10 = digitalRead(10);
   
-  if (buttonState == LOW) {
-    for(int x = 0; x < 8; x++){
-      pressKey(KEY_STRING[x], MOD_STRING[x]);
+  if (buttonState_4 == LOW) {
+    for(int x = 0; x < ARRAY_LENGTH_4; x++){
+      pressKey(KEY_STRING_4[x], MOD_STRING_4[x]);
       }
+  } else if (buttonState_7 == LOW) {
+    for(int y = 0; y < ARRAY_LENGTH_7; y++){
+      pressKey(KEY_STRING_7[y], MOD_STRING_7[y]);
+      }
+  } else if (buttonState_10 == LOW) {
+    for(int z = 0; z < ARRAY_LENGTH_10; z++){
+      pressKey(KEY_STRING_10[z], MOD_STRING_10[z]);
+    }
   } else {
   digitalWrite(13, LOW);
   }
